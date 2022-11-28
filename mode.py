@@ -1,7 +1,7 @@
 import numpy as np
 
 def one_two(fing_list):
-    # finger_list = [thumb_xavg,thumb_yavg, ind_xavg,ind_yavg,mid_xavg,mid_yavg, ring_xavg,ring_yavg,pinky_xavg,pinky_yavg,wrist_xavg,wrist_yavg]
+    # finger_list = [thumb_xavg,thumb_yavg, ind_xavg,ind_yavg,mid_xavg,mid_yavg, ring_xavg,ring_yavg,pinky_xavg,pinky_yavg,wrist_xavg,wrist_yavg,dist]
     print("inone")
     xdist = fing_list[2]-fing_list[4]
     ydist = fing_list[3]-fing_list[5]
@@ -20,6 +20,7 @@ def one_two(fing_list):
     print("index:",ind_dist)
     # Thumb:
     mid_dist = np.sqrt((fing_list[4]-wx)**2+(fing_list[5]-wy)**2)
+    print("middle:",mid_dist)
     # Thumb:
     ring_dist = np.sqrt((fing_list[6]-wx)**2+(fing_list[7]-wy)**2)
     print("ring:",ring_dist)
@@ -27,6 +28,8 @@ def one_two(fing_list):
     pinky_dist = np.sqrt((fing_list[8]-wx)**2+(fing_list[9]-wy)**2)
     print("pinky:",pinky_dist)
 
+    dist = fing_list[12]
+    print("dist index-middle norm:", dist_index_middle*dist/1.5 )
     if dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist-mid_dist < 0.05:
         return (2)
     elif dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist > 1.8*mid_dist:
