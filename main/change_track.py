@@ -20,7 +20,7 @@ def next_track(text_to_print, mode, positions, isThumbRightFirst, prev_thumbTip_
     #prev_thumbTip_x = -1
     text_to_print = ''
 
-    next_track_dict = {0: 'Next Track', 1: 'Next Temp?'}
+    next_track_dict = {0: 'Next Track', 1: 'Increase Temp'}
     
     # DUMMY
     mhl = positions
@@ -66,7 +66,7 @@ def previous_track(text_to_print, mode, positions, isThumbLeftFirst, prev_thumbT
 
     # helper vars
 
-    prev_track_dict = {0: 'Previous Track', 1: 'Previous Temp?'}
+    prev_track_dict = {0: 'Previous Track', 1: 'Decrease Temp'}
 
     # DUMMY
     mhl = positions

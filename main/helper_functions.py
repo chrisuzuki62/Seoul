@@ -70,24 +70,28 @@ def one_two(fing_list):
     if dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist-mid_dist < 0.05:
         return (2)
     elif dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist > 1.8*mid_dist:
+        print("I classify as mode 1")
         return (1)
     else:
-        return(3)
+        return(0)
 
-def change_mode(mode, fing_list, mode_endtime):
+def change_mode(mode, fing_list, mode_endtime,collect_data):
 
     if len(fing_list) == 12:
 ## Recognize as peach if the distances are far enough   
         if one_two(fing_list) == 1:
             mode = 1
             mode_endtime = datetime.now() + timedelta(seconds = 3)
+            collect_data.clear()
             print(f"mode {mode}")
+
             # image = cv2.putText(image, 'Peace Sign', (80,80), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
         # elif one_two(fing_list) == 2:
         #     mode = 2
         #     print(f"mode {mode}")
         #     print(0)
         else:
+            print("IN HEREEERREERER")
             mode = 0 # = "base"
 
     return mode, mode_endtime
