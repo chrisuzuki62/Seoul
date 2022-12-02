@@ -42,7 +42,7 @@ isPickUpCall = False
 mode = 0 #DUMMY
 flag1 = False
 flag2 = False
-size_list = 20
+size_list = 10
 mode_endtime = datetime.now()
 
 all_printable_texts = ['Next Track', 'Previous Track', 'Next Temp?', 'Previous Temp?']
@@ -114,26 +114,30 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                     if datetime.now() > text_print_end_time:
                         # mode_time = datetime.now()+timedelta(seconds = 5)
                         if datetime.now() >= mode_endtime or mode == 0: 
+                            print("checking mode")
                             mode,mode_endtime = change_mode(mode, fing_list,mode_endtime)
-                        
+                    
                         text_to_print = ''
                         text_to_print_2 = ''
 
                         # all functions
-                        text_to_print, isThumbRightFirst, prev_thumbTip_x_next = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next)
-                        text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev)
-
+                        text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
+                        if flag1 ==0:
+                            text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
                         # print(text_to_print, isThumbLeftFirst, isThumbRightFirst, prev_thumbTip_x_next, prev_thumbTip_x_prev)
                         if text_to_print in all_printable_texts:
-                            text_print_end_time = datetime.now() + timedelta(seconds = 2)
+                            text_print_end_time = datetime.now() + timedelta(seconds = 1)
+                            flag1 = 0
                                 #image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
                         
                 # uncomment to test frame by frame
                 #cv.waitKey(0)
-                        
+        # else:
+        #     mode = 0                
         if datetime.now() > text_print_end_time and not flag2:
             text_to_print = ''
             text_to_print_2 = ''
+    
 
         text_to_print = text_to_print + "Currrent MODE:" + str(mode)
         # text_to_print_2 = text_to_print_2 + "Currrent MODE:" + str(mode)

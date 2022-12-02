@@ -55,7 +55,7 @@ if MyText in ['turn on gesture recognition', 'gesture recognition', 'gesture', '
       results = hands.process(image)
 
       ## Take running average of 20 data points
-      size_list = 30
+      size_list = 20
 
       # Draw the hand annotations on the image.
       image.flags.writeable = True

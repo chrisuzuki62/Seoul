@@ -1,5 +1,6 @@
-def change_mode(hand_landmarks, size_list = 20):
-    fing_list = collect_data.append(hand_landmarks,size_list)
+
+def change_mode(mode, fing_list):
+  
             
     if len(fing_list) == 12:
     ## Recognize as peach if the distances are far enough
