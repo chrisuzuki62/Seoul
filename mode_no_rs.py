@@ -27,13 +27,13 @@ def one_two(fing_list):
     pinky_dist = np.sqrt((fing_list[8]-wx)**2+(fing_list[9]-wy)**2)
     print("pinky:",pinky_dist)
 
-    if dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist-mid_dist < 0.05:
+    if dist_index_middle >0.06 and ind_dist > 1.2*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist-mid_dist < 0.05:
         return (2)
-    elif dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist > 1.8*mid_dist:
+    elif ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist > 1.8*mid_dist:
         return (1)
     else:
         return(3)
     ## Recognize as peach if the distances are far enough
 # def two():
 
-# def mode():
+# def mode(): dist_index_middle >0.08 and 

@@ -2,13 +2,15 @@ import cv2
 import mediapipe as mp
 #import speech_recognition as sr
 import time
-from mode import *
+from mode_no_rs import *
+import datacollect
 
 import numpy as np
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 
+collect_data = datacollect.data()
 #Information about tracking:  https://google.github.io/mediapipe/solutions/hands.html
 
 # Initialize the recognizer
@@ -32,19 +34,19 @@ if MyText in ['turn on gesture recognition', 'gesture recognition', 'gesture', '
   cap = cv2.VideoCapture(0)
 
   ### Create running lists for useful hand coordinates to take average and remove noise
-  thumb_x = np.empty((0,20))
-  thumb_y = np.empty((0,20))
-  index_x = np.empty((0,20))
-  index_y= np.empty((0,20))
-  middle_x = np.empty((0,20))
-  middle_y = np.empty((0,20))
-  ring_x = np.empty((0,20))
-  ring_y = np.empty((0,20))
-  pinky_x = np.empty((0,20))
-  pinky_y = np.empty((0,20))
-  wrist_x = np.empty((0,20))
-  wrist_y = np.empty((0,20))
-
+  # thumb_x = np.empty((0,20))
+  # thumb_y = np.empty((0,20))
+  # index_x = np.empty((0,20))
+  # index_y= np.empty((0,20))
+  # middle_x = np.empty((0,20))
+  # middle_y = np.empty((0,20))
+  # ring_x = np.empty((0,20))
+  # ring_y = np.empty((0,20))
+  # pinky_x = np.empty((0,20))
+  # pinky_y = np.empty((0,20))
+  # wrist_x = np.empty((0,20))
+  # wrist_y = np.empty((0,20))
+  
 #   middle_tip_x,middle_tip_y,index_tip_x,index_tip_y= np.empty((0,20))
   mode = "Base"
   with mp_hands.Hands(
@@ -81,63 +83,67 @@ if MyText in ['turn on gesture recognition', 'gesture recognition', 'gesture', '
               mp_drawing_styles.get_default_hand_landmarks_style(),
               mp_drawing_styles.get_default_hand_connections_style())
           image_height, image_width, _ = image.shape
-
+          # collect_data = data()
+          fing_list = collect_data.append(hand_landmarks,20)
+          
+        
+        # print(len(index_x))
         ## Continue adding to the running list if length is not at size_list yet
-        if len(index_x)<size_list:
-          thumb_x = np.append(thumb_x,hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x)
-          thumb_y = np.append(thumb_y,hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y)
-          index_x = np.append(index_x,hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x)
-          index_y = np.append(index_y,hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y)
-          middle_x = np.append(middle_x,hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x)
-          middle_y = np.append(middle_y,hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y)
-          ring_x = np.append(ring_x,hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].x)
-          ring_y = np.append(ring_y,hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].y)
-          pinky_x = np.append(pinky_x,hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].x)
-          pinky_y = np.append(pinky_y,hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].y)
-          wrist_x = np.append(wrist_x,hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].x)
-          wrist_y = np.append(wrist_y,hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y)
+        # if len(index_x)<size_list:
+        #   thumb_x = np.append(thumb_x,hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x)
+        #   thumb_y = np.append(thumb_y,hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y)
+        #   index_x = np.append(index_x,hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x)
+        #   index_y = np.append(index_y,hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y)
+        #   middle_x = np.append(middle_x,hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].x)
+        #   middle_y = np.append(middle_y,hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y)
+        #   ring_x = np.append(ring_x,hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].x)
+        #   ring_y = np.append(ring_y,hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].y)
+        #   pinky_x = np.append(pinky_x,hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].x)
+        #   pinky_y = np.append(pinky_y,hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].y)
+        #   wrist_x = np.append(wrist_x,hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].x)
+        #   wrist_y = np.append(wrist_y,hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y)
 
-          # print(len(index_tip_x))
-        ## If the size of the list is 20, then calculate the running average
-        elif len(index_x) == size_list:
-            thumb_xavg = np.sum(thumb_x)/size_list
-            thumb_yavg = np.sum(thumb_y)/size_list
-            ind_xavg = np.sum(index_x)/size_list
-            ind_yavg = np.sum(index_y)/size_list
-            mid_xavg = np.sum(middle_x)/size_list
-            mid_yavg = np.sum(middle_y)/size_list
-            ring_xavg = np.sum(ring_x)/size_list
-            ring_yavg = np.sum(ring_y)/size_list
-            pinky_xavg = np.sum(pinky_x)/size_list
-            pinky_yavg = np.sum(pinky_y)/size_list
-            wrist_xavg = np.sum(wrist_x)/size_list
-            wrist_yavg = np.sum(wrist_y)/size_list
-            finger_list = [thumb_xavg,thumb_yavg, ind_xavg,ind_yavg,mid_xavg,mid_yavg, ring_xavg,ring_yavg,pinky_xavg,pinky_yavg,wrist_xavg,wrist_yavg]
+        #   # print(len(index_tip_x))
+        # ## If the size of the list is 20, then calculate the running average
+        # elif len(index_x) == size_list:
+        #     thumb_xavg = np.sum(thumb_x)/size_list
+        #     thumb_yavg = np.sum(thumb_y)/size_list
+        #     ind_xavg = np.sum(index_x)/size_list
+        #     ind_yavg = np.sum(index_y)/size_list
+        #     mid_xavg = np.sum(middle_x)/size_list
+        #     mid_yavg = np.sum(middle_y)/size_list
+        #     ring_xavg = np.sum(ring_x)/size_list
+        #     ring_yavg = np.sum(ring_y)/size_list
+        #     pinky_xavg = np.sum(pinky_x)/size_list
+        #     pinky_yavg = np.sum(pinky_y)/size_list
+        #     wrist_xavg = np.sum(wrist_x)/size_list
+        #     wrist_yavg = np.sum(wrist_y)/size_list
+        #     finger_list = [thumb_xavg,thumb_yavg, ind_xavg,ind_yavg,mid_xavg,mid_yavg, ring_xavg,ring_yavg,pinky_xavg,pinky_yavg,wrist_xavg,wrist_yavg]
 
-            thumb_x = np.empty((0,20))
-            thumb_y = np.empty((0,20))
-            index_x = np.empty((0,20))
-            index_y= np.empty((0,20))
-            middle_x = np.empty((0,20))
-            middle_y = np.empty((0,20))
-            ring_x = np.empty((0,20))
-            ring_y = np.empty((0,20))
-            pinky_x = np.empty((0,20))
-            pinky_y = np.empty((0,20))
-            wrist_x = np.empty((0,20))
-            wrist_y = np.empty((0,20))
-
+        #     thumb_x = np.empty((0,20))
+        #     thumb_y = np.empty((0,20))
+        #     index_x = np.empty((0,20))
+        #     index_y= np.empty((0,20))
+        #     middle_x = np.empty((0,20))
+        #     middle_y = np.empty((0,20))
+        #     ring_x = np.empty((0,20))
+        #     ring_y = np.empty((0,20))
+        #     pinky_x = np.empty((0,20))
+        #     pinky_y = np.empty((0,20))
+        #     wrist_x = np.empty((0,20))
+        #     wrist_y = np.empty((0,20))
+          if len(fing_list) == 12:
           ## Recognize as peach if the distances are far enough
-            if one_two(finger_list) == 1:
-                mode = 1
-                print(f"mode {mode}")
-                # image = cv2.putText(image, 'Peace Sign', (80,80), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
-            elif one_two(finger_list) == 2:
-                mode = 2
-                print(f"mode {mode}")
-                print(0)
-            else:
-                mode = "Base"
+              if one_two(fing_list) == 1:
+                  mode = 1
+                  print(f"mode {mode}")
+                  # image = cv2.putText(image, 'Peace Sign', (80,80), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+              elif one_two(fing_list) == 2:
+                  mode = 2
+                  print(f"mode {mode}")
+                  print(0)
+              else:
+                  mode = "Base"
                 
         else:
             index_middle_x = 0
