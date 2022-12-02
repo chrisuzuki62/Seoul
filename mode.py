@@ -7,11 +7,11 @@ def one_two(fing_list):
     ydist = fing_list[3]-fing_list[5]
     ## Calculate the distance between the index and middle finger tips
     dist_index_middle = np.sqrt(xdist**2+ydist**2)
-    print(dist_index_middle)
 
     # Check if fingers are close to wrist
     wx = fing_list[10]
     wy = fing_list[11]
+    
     # Thumb:
     thumb_dist = np.sqrt((fing_list[0]-wx)**2+(fing_list[1]-wy)**2)
     print("thumb:",thumb_dist)

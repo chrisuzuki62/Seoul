@@ -167,21 +167,22 @@ if MyText in ['turn on gesture recognition', 'gesture recognition', 'gesture', '
             elif index_mcp_y > 479:
                 index_mcp_y = 479
 
-            wrist_x = int(hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].x * depth_colormap_dim[1])
-            wrist_y = int(hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y * depth_colormap_dim[0]+offset)
-            if wrist_x < 1:
-                wrist_x = 1
-            elif wrist_y < 1:    
-                wrist_y = 1                    
-            elif wrist_x > 639:
-                wrist_x = 639
-            elif wrist_y > 479:
-                wrist_y = 479
+            d_wrist_x = int(hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].x * depth_colormap_dim[1])
+            d_wrist_y = int(hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y * depth_colormap_dim[0]+offset)
+            if d_wrist_x < 1:
+                d_wrist_x = 1
+            elif d_wrist_y < 1:    
+                d_wrist_y = 1                    
+            elif d_wrist_x > 639:
+                d_wrist_x = 639
+            elif d_wrist_y > 479:
+                d_wrist_y = 479
 
             # Collect Distance Data
-            palm_x = int((wrist_x + index_mcp_x + pinky_mcp_x)/3)
-            palm_y = int((wrist_y + index_mcp_y + pinky_mcp_y)/3)
+            palm_x = int((d_wrist_x + index_mcp_x + pinky_mcp_x)/3)
+            palm_y = int((d_wrist_y + index_mcp_y + pinky_mcp_y)/3)
             dist = depth_frame.get_distance(palm_x, palm_y)
+
 
             ## Continue adding to the running list if length is not at size_list yet
             if len(index_x)<size_list:
@@ -246,8 +247,8 @@ if MyText in ['turn on gesture recognition', 'gesture recognition', 'gesture', '
             index_middle_x = 0
             index_middle_y = 0
             index_middle_z = 0
-            wrist_x = 1
-            wrist_y = 1
+            d_wrist_x = 1
+            d_wrist_y = 1
             index_mcp_x = 1
             index_mcp_y = 1
             pinky_mcp_x = 1
