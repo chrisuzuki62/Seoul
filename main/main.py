@@ -127,10 +127,10 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
         image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
         cv.imshow('Image', image)
 
-        # ======================================================
-        # determine mode using mode.py
-        # mode = ...
-        # ======================================================
+                # ======================================================
+                # determine mode using mode.py
+                mode = change_mode(hand, size_list = 20)
+                # ======================================================
 
         if cv.waitKey(33) == ord('q'):
             break
