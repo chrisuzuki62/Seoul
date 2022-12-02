@@ -30,6 +30,7 @@ prev_thumbTip_x_prev = -1
 text_print_end_time = datetime.now() - timedelta(days = 10)
 text_to_print = ''
 text_to_print_2 = ''
+count = 0
 
 # handle_calls
 isHandStraightFlatFirst = False
@@ -94,6 +95,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
 
         # check if there is a hand in camera feed
         if results.multi_hand_landmarks:
+            count = 0
             mhl = results.multi_hand_landmarks
             for num, hand in enumerate(results.multi_hand_landmarks):
 
@@ -122,13 +124,17 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                         text_to_print_2 = ''
 
                         # all functions
-                        # if mode == 0:
-                        text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
-                        if flag1 ==0:
-                            text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
+                        if mode == 0:
+                            text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
+                            if flag1 ==0:
+                                text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
                         # print(text_to_print, isThumbLeftFirst, isThumbRightFirst, prev_thumbTip_x_next, prev_thumbTip_x_prev)
-                        # elif mode == 1:
-                        #     text_to_print = 'Increase or Decrease Temp'
+                        elif mode == 1:
+                            ## Rithwik to add functions in here    
+                            pass
+                            # text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
+                            # if flag1 ==0:
+                            #     text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
                         if text_to_print != '':
                             text_print_end_time = datetime.now() + timedelta(seconds = 1)
                             flag1 = 0
@@ -137,7 +143,15 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                 # uncomment to test frame by frame
                 #cv.waitKey(0)
         # else:
-        #     mode = 0                
+        #     mode = 0 
+        elif not flag2 and not results.multi_hand_landmarks:
+            count+=1
+            if count >30:
+                mode = 0
+                # print("NO HAND IN FRAME FOR LONG TIME")
+                text_to_print = ''
+                text_to_print_2 = ''
+                collect_data.clear()               
         if datetime.now() > text_print_end_time and not flag2:
             text_to_print = ''
             text_to_print_2 = ''
