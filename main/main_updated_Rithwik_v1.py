@@ -123,7 +123,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                             # print("checking mode")
                             mode,mode_endtime = change_mode(mode, fing_list,mode_endtime,collect_data)
                             # collect_data.clear()
-                            print(f"MODE is {mode}")
+                            # print(f"MODE is {mode}")
                         text_to_print = ''
                         text_to_print_2 = ''
 
@@ -147,8 +147,11 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                                 text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
                         # print(text_to_print, isThumbLeftFirst, isThumbRightFirst, prev_thumbTip_x_next, prev_thumbTip_x_prev)
                         elif mode == 1:
-                            ## Rithwik to add functions in here    
-                            pass
+                            ## Rithwik to add functions in here 
+                            if volper > 10:
+                            # pass
+                                cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)   
+                            # pass
                             # text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
                             # if flag1 ==0:
                             #     text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
