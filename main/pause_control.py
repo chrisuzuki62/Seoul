@@ -47,21 +47,22 @@ def pause_control(hands, mpHands, mpDraw, cap):
             # 20 - litte finger
 
             #creating circle at the tips of thumb and index finger
-            cv2.circle(img,(x1,y1),13,(255,0,0),cv2.FILLED) #image #fingers #radius in rgb
-            cv2.circle(img,(x2,y2),13,(255,0,0),cv2.FILLED) #image #fingers #radius in rgb
-            cv2.circle(img,(x3,y3),13,(255,0,0),cv2.FILLED)
-            cv2.circle(img,(x4,y4),13,(255,0,0),cv2.FILLED)
-            cv2.circle(img,(x5,y5),13,(255,0,0),cv2.FILLED)
+            # cv2.circle(img,(x1,y1),13,(255,0,0),cv2.FILLED) #image #fingers #radius in rgb
+            # cv2.circle(img,(x2,y2),13,(255,0,0),cv2.FILLED) #image #fingers #radius in rgb
+            # cv2.circle(img,(x3,y3),13,(255,0,0),cv2.FILLED)
+            # cv2.circle(img,(x4,y4),13,(255,0,0),cv2.FILLED)
+            # cv2.circle(img,(x5,y5),13,(255,0,0),cv2.FILLED)
 
-            # cv2.line(img,(x1,y1),(x2,y2),(255,0,0),3)
-            cv2.line(img,(x2b,y2b),(x2,y2),(255,0,0),3)
-            cv2.line(img,(x3b,y3b),(x3,y3),(255,0,0),3)
-            cv2.line(img,(x4b,y4b),(x4,y4),(255,0,0),3)  #create a line between tips of index finger and thumb. This will determine the current volume
-            cv2.line(img,(x5b,y5b),(x5,y5),(255,0,0),3)
+            # # cv2.line(img,(x1,y1),(x2,y2),(255,0,0),3)
+            # cv2.line(img,(x2b,y2b),(x2,y2),(255,0,0),3)
+            # cv2.line(img,(x3b,y3b),(x3,y3),(255,0,0),3)
+            # cv2.line(img,(x4b,y4b),(x4,y4),(255,0,0),3)  
+            # cv2.line(img,(x5b,y5b),(x5,y5),(255,0,0),3)
 
             length2 = math.hypot(x2-x2b,y2-y2b)
             length3 = math.hypot(x3-x3b,y3-y3b)
             length4 = math.hypot(x4-x4b,y4-y4b)
             length5 = math.hypot(x5-x5b,y5-y5b)
+            lengtht = math.hypot(x1-x5b,y1-y5b)
 
-            return length2, length3, length4, length5
+            return length2, length3, length4, length5, lengtht #returns the various lengths calculated

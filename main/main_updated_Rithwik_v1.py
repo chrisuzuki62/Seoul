@@ -148,8 +148,8 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
 
                         
 
-                        length2, length3, length4, length5 = pause_control(mp_hands_hands, mp_hands,mp_drawing, cap)
-                        if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30:
+                        length2, length3, length4, length5, lengtht = pause_control(mp_hands_hands, mp_hands,mp_drawing, cap)
+                        if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30 and lengtht < 150:
                             image = cv2.putText(image, 'PAUSE MUSIC', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
                         # print(text_to_print, isThumbLeftFirst, isThumbRightFirst, prev_thumbTip_x_next, prev_thumbTip_x_prev)
                         elif mode == 1:
