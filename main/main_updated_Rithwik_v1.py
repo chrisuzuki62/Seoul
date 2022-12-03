@@ -140,7 +140,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                             if volper > 10:
                             # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
-                                image = cv2.putText(image, 'VOLUME', (80,80), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+                                image = cv2.putText(image, 'VOLUME', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
 
                             text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
                             if flag1 ==0:
@@ -161,7 +161,6 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                             # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)  
                                 image = cv2.putText(image, 'TEMPERATURE', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0)) 
-                            # pass
                             # text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
                             # if flag1 ==0:
                             #     text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
