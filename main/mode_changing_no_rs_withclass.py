@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 #import speech_recognition as sr
 import time
-from mode_no_rs import *
+from helper_functions import *
 import datacollect
 
 import numpy as np

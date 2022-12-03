@@ -54,22 +54,25 @@ def one_two(fing_list):
     wy = fing_list[11]
     # Thumb:
     thumb_dist = np.sqrt((fing_list[0]-wx)**2+(fing_list[1]-wy)**2)
-    # print("thumb:",thumb_dist)
+    print("thumb:",thumb_dist)
     # index:
     ind_dist = np.sqrt((fing_list[2]-wx)**2+(fing_list[3]-wy)**2)
-    # print("index:",ind_dist)
+    print("index:",ind_dist)
     # Thumb:
     mid_dist = np.sqrt((fing_list[4]-wx)**2+(fing_list[5]-wy)**2)
     # Thumb:
     ring_dist = np.sqrt((fing_list[6]-wx)**2+(fing_list[7]-wy)**2)
-    # print("ring:",ring_dist)
+    print("ring:",ring_dist)
     # Thumb:
     pinky_dist = np.sqrt((fing_list[8]-wx)**2+(fing_list[9]-wy)**2)
-    # print("pinky:",pinky_dist)
+    print("pinky:",pinky_dist)
+
+    thumb_middle = np.sqrt((fing_list[0]-fing_list[4])**2+(fing_list[1]-fing_list[5])**2)
+    print("thumb:",thumb_middle)
 
     if dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist-mid_dist < 0.05:
         return (2)
-    elif dist_index_middle >0.085 and ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist > 1.8*mid_dist:
+    elif ind_dist > 1.5*thumb_dist and ind_dist > 1.8*ring_dist and ind_dist > 1.8*pinky_dist and ind_dist > 1.8*mid_dist and thumb_middle < 0.11:
         print("I classify as mode 1")
         return (1)
     else:
@@ -81,7 +84,7 @@ def change_mode(mode, fing_list, mode_endtime,collect_data):
 ## Recognize as peach if the distances are far enough   
         if one_two(fing_list) == 1:
             mode = 1
-            mode_endtime = datetime.now() + timedelta(seconds = 3)
+            mode_endtime = datetime.now() + timedelta(seconds = 4)
             collect_data.clear()
             print(f"mode {mode}")
 
