@@ -13,6 +13,7 @@ from helper_functions import *
 
 collect_data = datacollect.data()
 
+
 # set up mediapipe and camera
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
