@@ -63,9 +63,9 @@ def volume_control(hands, mpHands, mpDraw, cap):
             length4 = math.hypot(x4-x4b,y4-y4b)
             length5 = math.hypot(x5-x5b,y5-y5b)
             lengtht = math.hypot(x1-x5b,y1-y5b)
-            length_23 = math.hypot(x2-x3,y2-y3)
+            # length_23 = math.hypot(x2-x3,y2-y3)
 
-            if length3 < 80 and length4 < 80 and length5 < 80 and length2 > 80 and lengtht >130 and length_23 > 50:
+            if length3 < 80 and length4 < 80 and length5 < 80 and length2 > 80 and lengtht >80: # and length_23 > 50:
 
                 length = math.hypot(x2-x1,y2-y1) #distance b/w tips using hypotenuse
                 # using numpy we find our length by converting hand range in terms of volume range ie between -63.5 to 0

@@ -137,7 +137,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                         # all functions
                         if mode == 0:
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
-                            if volper > 10:
+                            if volper > 0.5:
                             # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
                                 image = cv2.putText(image, 'VOLUME', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
@@ -158,7 +158,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                             volper = 0
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                             ## Rithwik to add functions in here 
-                            if volper > 10:
+                            if volper > 0.5:
                             # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)  
                                 image = cv2.putText(image, 'TEMPERATURE', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0)) 
