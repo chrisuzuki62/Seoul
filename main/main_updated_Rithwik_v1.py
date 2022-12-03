@@ -191,7 +191,10 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
         # text_to_print_2 = text_to_print_2 + "Currrent MODE:" + str(mode)
         image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
         image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
-        cv.imshow('Image', image)
+        
+        cv2.namedWindow("output", cv2.WINDOW_NORMAL)    # Create window with freedom of dimensions                 # Read image
+        cv2.resize(image, (960, 540))
+        cv.imshow('Output', image)
 
                 # ======================================================
                 # determine mode using mode.py
