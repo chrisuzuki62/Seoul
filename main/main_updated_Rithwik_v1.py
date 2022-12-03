@@ -118,9 +118,9 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                     isPickUpCall, isRejectCall, isHandStraightFlatFirst, prev_x_mean = respond_call(all_xs, all_ys, isHandStraightFlatFirst, prev_x_mean)
                 else:
                     if datetime.now() > text_print_end_time:
-                        # mode_time = datetime.now()+timedelta(seconds = 5)
+                        # mode_time = datetime.now()+timedelta(seconds = 5)q
                         if datetime.now() >= mode_endtime or mode == 0: 
-                            print("checking mode")
+                            # print("checking mode")
                             mode,mode_endtime = change_mode(mode, fing_list,mode_endtime,collect_data)
                             # collect_data.clear()
                             print(f"MODE is {mode}")
@@ -132,12 +132,9 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
 
                         volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                         
-                        if volbar != 0 or volper != 0:
-                            pass
-                            # cv2.rectangle(image,(50,150),(85,400),(0,0,255),4) # vid ,initial position ,ending position ,rgb ,thickness
-                            # cv2.rectangle(image,(50,int(volbar)),(85,400),(0,0,255),cv2.FILLED)
-                            
-                        cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
+                        if volper > 10:
+                            # pass
+                            cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
 
                         length2, length3, length4, length5 = pause_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                         if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30:
