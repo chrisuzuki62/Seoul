@@ -34,6 +34,7 @@ def next_track(text_to_print, mode, positions, isThumbRightFirst, prev_thumbTip_
     all_zs = np.array([joint.z for joint in mhl[0].landmark])
 
 
+    
     # next track
     if isthumbRight(all_xs) and isThumbRightFirst and (thumb_tip_x - prev_thumbTip_x > 0.2):
         text_to_print = next_track_dict[int(mode)]
