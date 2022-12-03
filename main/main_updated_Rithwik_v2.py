@@ -22,7 +22,6 @@ mp_hands_hands = mp_hands.Hands()
 cap = cv.VideoCapture(0)
 
 # initialize helper vars
-
 # change_track
 isThumbRightFirst = False
 isThumbLeftFirst = False
