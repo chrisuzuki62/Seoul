@@ -2,7 +2,7 @@ from helper_functions import *
 import cv2
 import numpy as np
 import mediapipe as mp
-import math as hypot
+import math
 
 def pause_control(hands, mpHands, mpDraw, cap):
     while True:
@@ -59,9 +59,9 @@ def pause_control(hands, mpHands, mpDraw, cap):
             cv2.line(img,(x4b,y4b),(x4,y4),(255,0,0),3)  #create a line between tips of index finger and thumb. This will determine the current volume
             cv2.line(img,(x5b,y5b),(x5,y5),(255,0,0),3)
 
-            length2 = hypot(x2-x2b,y2-y2b)
-            length3 = hypot(x3-x3b,y3-y3b)
-            length4 = hypot(x4-x4b,y4-y4b)
-            length5 = hypot(x5-x5b,y5-y5b)
+            length2 = math.hypot(x2-x2b,y2-y2b)
+            length3 = math.hypot(x3-x3b,y3-y3b)
+            length4 = math.hypot(x4-x4b,y4-y4b)
+            length5 = math.hypot(x5-x5b,y5-y5b)
 
-        return length2, length3, length4, length5
+            return length2, length3, length4, length5

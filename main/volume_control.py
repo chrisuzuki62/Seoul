@@ -2,10 +2,12 @@ from helper_functions import *
 import cv2
 import numpy as np
 import mediapipe as mp
-import math as hypot
+import math
 
 def volume_control(hands, mpHands, mpDraw, cap):
     while True:
+        volbar = 0
+        volper = 0
         success, img = cap.read() #If camera works capture an image
         imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB) #Converts image to rgb
         
@@ -49,14 +51,14 @@ def volume_control(hands, mpHands, mpDraw, cap):
             cv2.line(img,(x2,y2),(x3,y3),(255,0,0),3)
             cv2.line(img,(x3,y3),(x4,y4),(255,0,0),3)
             cv2.line(img,(x4,y4),(x5,y5),(255,0,0),3)  #create a line between tips of index finger and thumb. This will determine the current volume
-    
-            length = hypot(x2-x1,y2-y1) #distance b/w tips using hypotenuse
+            print('dawd', x1, x2, y1, y2)
+
+            length = math.hypot(x2-x1,y2-y1) #distance b/w tips using hypotenuse
             # using numpy we find our length by converting hand range in terms of volume range ie between -63.5 to 0
 
             volbar=np.interp(length,[30,350],[400,150])
             volper=np.interp(length,[30,350],[0,100])
-
-        return volbar, volper
+            return volbar, volper
 
 
 
