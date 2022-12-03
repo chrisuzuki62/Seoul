@@ -53,6 +53,8 @@ i = 0
 
 all_printable_texts = ['Next Track', 'Previous Track', 'Increase Temp', 'Decrease Temp']
 
+modes_dict = {2:'Phone Call', 0:'Media', 1:'Climate'}
+
 with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.5) as hands:
     while cap.isOpened():
 
@@ -73,6 +75,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
         image.flags.writeable = True
         image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
 
+
         
         if cv.waitKey(33) == ord('c'):
             print('Getting a call')
@@ -81,8 +84,8 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
             start_time = datetime.now()
             text_to_print =  'Incoming Call from'
             text_to_print_2 = 'Kenji Shimada'
-            image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
-            image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+            image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
+            image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
         
         if flag2 and (isRejectCall or isPickUpCall):
             if isRejectCall:
@@ -137,28 +140,32 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                         # all functions
                         if mode == 0:
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
-                            if volper > 10:
+                            if volper > 0.5:
                             # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
-                                image = cv2.putText(image, 'VOLUME', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+                                image = cv2.putText(image, 'VOLUME', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
 
                             text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
                             if flag1 ==0:
                                 text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
-                                
-                                length2, length3, length4, length5, lengtht = pause_control(mp_hands_hands, mp_hands,mp_drawing, cap)
-                                if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30 and lengtht < 150:
-                                    image = cv2.putText(image, 'PAUSE MUSIC', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+
+                        
+
+                            length2, length3, length4, length5, lengtht = pause_control(mp_hands_hands, mp_hands,mp_drawing, cap)
+                            if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30 and lengtht < 80:
+                                image = cv2.putText(image, 'PAUSE MUSIC', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
                         # print(text_to_print, isThumbLeftFirst, isThumbRightFirst, prev_thumbTip_x_next, prev_thumbTip_x_prev)
+
                         elif mode == 1:
                             volbar = 0
                             volper = 0
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                             ## Rithwik to add functions in here 
-                            if volper > 10:
+                            if volper > 0.5:
                             # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)  
-                                image = cv2.putText(image, 'TEMPERATURE', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0)) 
+                                image = cv2.putText(image, 'TEMPERATURE', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0)) 
+                                mode_endtime = mode_endtime + timedelta(seconds = 0.2)
                             # text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
                             # if flag1 ==0:
                             #     text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
@@ -182,12 +189,14 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
         if datetime.now() > text_print_end_time and not flag2:
             text_to_print = ''
             text_to_print_2 = ''
-
-        text_to_print = text_to_print + "Currrent MODE:" + str(mode)
+            text_to_print1 = "Currrent MODE:" + str(mode)
+        
         # text_to_print_2 = text_to_print_2 + "Currrent MODE:" + str(mode)
-        image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
-        image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
-        cv.imshow('Image', image)
+        image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
+        image = cv.putText(image, "Currrent MODE:" + modes_dict[mode], (20,450), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
+        image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
+        
+        cv.imshow("output", image)
 
                 # ======================================================
                 # determine mode using mode.py
