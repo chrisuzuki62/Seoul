@@ -78,7 +78,7 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
         image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
 
 
-        
+        ## Simulating getting a call by pressing letter c
         if cv.waitKey(33) == ord('c'):
             print('Getting a call')
             mode = 2
@@ -88,7 +88,8 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
             text_to_print_2 = 'Kenji Shimada'
             image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
             image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
-        
+
+        ## Either accept of reject call
         if flag2 and (isRejectCall or isPickUpCall):
             if isRejectCall:
                 text_to_print = 'Call Rejected'
@@ -114,40 +115,35 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                 all_ys = np.array([joint.y for joint in mhl[0].landmark])
                 all_zs = np.array([joint.z for joint in mhl[0].landmark])
             
-                # print('All_Xs', all_xs)
-                # print('RES', isPickUpPhoneGesture(all_xs, all_ys))
                 
                 fing_list = collect_data.append(hand,size_list)
-                # call has been received
+
+                ## Call has been received
                 if flag2:
-                #     call_awaiting_response = True
                     isPickUpCall, isRejectCall, isHandStraightFlatFirst, prev_x_mean = respond_call(all_xs, all_ys, isHandStraightFlatFirst, prev_x_mean)
                 else:
                     if datetime.now() > text_print_end_time:
-                        # mode_time = datetime.now()+timedelta(seconds = 5)q
+                        
+                        # Recheck mode after mode timer has ended or the current mode is the base mode
                         if datetime.now() >= mode_endtime or mode == 0: 
-                            # print("checking mode")
+                            
                             mode,mode_endtime = change_mode(mode, fing_list,mode_endtime,collect_data)
-                            # collect_data.clear()
-                            # print(f"MODE is {mode}")
+                            
                         text_to_print = ''
                         text_to_print_2 = ''
 
                         results = mp_hands_hands.process(image)
-                        
-
-                        
-                        
 
                         # all functions
                         if mode == 0:
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                             if volper > 0.5:
-                            # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
                                 image = cv2.putText(image, 'VOLUME', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
 
+                            # Check to see if next track gesture has been identified
                             text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
+                            # If no next track gesture, then check for previous track
                             if flag1 ==0:
                                 text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
                             
@@ -155,50 +151,45 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                             if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30 and lengtht < 80:
                                 if flagp == True:
                                     image = cv2.putText(image, 'PAUSE MUSIC', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+
+                                    # Allow to change to play mode
                                     changeflag = True
-                                    print(flagp)
-                                    # flagp = False 
+    
                                     
                                 elif flagp == False:        
                                     image = cv2.putText(image, 'PLAY MUSIC', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
+                                    # Allow to change to play mode
                                     changeflag = True
-                                    print(flagp)
-                        # print(text_to_print, isThumbLeftFirst, isThumbRightFirst, prev_thumbTip_x_next, prev_thumbTip_x_prev)
+
 
                         elif mode == 1:
                             volbar = 0
                             volper = 0
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
-                            ## Rithwik to add functions in here 
                             if volper > 0.5:
-                            # pass
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)  
-                                image = cv2.putText(image, 'TEMPERATURE', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0)) 
+                                image = cv2.putText(image, 'TEMPERATURE', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
+                                # Add time to timer so that mode 1 doesn't end prematurely 
                                 mode_endtime = mode_endtime + timedelta(seconds = 0.2)
-                            # text_to_print, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime, flag1 = next_track(text_to_print, mode, mhl, isThumbRightFirst, prev_thumbTip_x_next, mode_endtime)
-                            # if flag1 ==0:
-                            #     text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
+                            
                         if text_to_print != '':
                             text_print_end_time = datetime.now() + timedelta(seconds = 1)
                             flag1 = 0
-                                #image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
                         
-                # uncomment to test frame by frame
-                #cv.waitKey(0)
-        # else:
-        #     mode = 0 
+ 
         elif not flag2 and not results.multi_hand_landmarks:
             count+=1
+            # If currently in pause mode and change flag is true, then switch to play mode
             if flagp == True and changeflag == True:
                 flagp = False
                 changeflag == False
+            # If currently in play mode and change flag is true, then switch to pause mode
             elif flagp == False and changeflag == True:
                 flagp = True
                 changeflag == False
-
+            # If no hand has been in the frame for a while, then automatically return to base mode
             if count >30:
                 mode = 0
-                # print("NO HAND IN FRAME FOR LONG TIME")
                 text_to_print = ''
                 text_to_print_2 = ''
                 collect_data.clear()               
@@ -207,17 +198,12 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
             text_to_print_2 = ''
             text_to_print1 = "Currrent MODE:" + str(mode)
         
-        # text_to_print_2 = text_to_print_2 + "Currrent MODE:" + str(mode)
         image = cv.putText(image, text_to_print, (80,80), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
         image = cv.putText(image, "Currrent MODE:" + modes_dict[mode], (20,450), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
         image = cv.putText(image, text_to_print_2, (80,160), cv.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
         
         cv.imshow("output", image)
 
-                # ======================================================
-                # determine mode using mode.py
-
-                # ======================================================
 
         if cv.waitKey(33) == ord('q'):
             break
