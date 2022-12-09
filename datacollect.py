@@ -9,6 +9,7 @@ class data():
     size_list = 20
     finger_list = []
     def __init__(self):
+        # Initialize running arrays for fingers to remove noise
         self.thumb_x = np.empty((0,20))
         self.thumb_y = np.empty((0,20))
         self.index_x = np.empty((0,20))
@@ -24,6 +25,7 @@ class data():
         self.fing_list = []
     def append(self, hand_landmarks,size_list):
         if len(self.index_x) < size_list:
+            # Append readings to a list
             self.thumb_x = np.append(self.thumb_x,hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x)
             self.thumb_y = np.append(self.thumb_y,hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].y)
             self.index_x = np.append(self.index_x,hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x)
@@ -38,6 +40,7 @@ class data():
             self.wrist_y = np.append(self.wrist_y,hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].y)
             return []
         else:
+            # Once the size of running lists reaches the desired amount, take the average
             thumb_xavg = np.sum(self.thumb_x)/size_list
             thumb_yavg = np.sum(self.thumb_y)/size_list
             ind_xavg = np.sum(self.index_x)/size_list
@@ -51,6 +54,7 @@ class data():
             wrist_xavg = np.sum(self.wrist_x)/size_list
             wrist_yavg = np.sum(self.wrist_y)/size_list
             self.fing_list = [thumb_xavg,thumb_yavg, ind_xavg,ind_yavg,mid_xavg,mid_yavg, ring_xavg,ring_yavg,pinky_xavg,pinky_yavg,wrist_xavg,wrist_yavg]
+            # Reinitialize the arrays
             self.thumb_x = np.empty((0,20))
             self.thumb_y = np.empty((0,20))
             self.index_x = np.empty((0,20))
