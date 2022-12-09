@@ -64,16 +64,3 @@ class data():
             self.wrist_x = np.empty((0,20))
             self.wrist_y = np.empty((0,20))
             return self.fing_list
-    def clear(self):
-        self.thumb_x = np.empty((0,20))
-        self.thumb_y = np.empty((0,20))
-        self.index_x = np.empty((0,20))
-        self.index_y= np.empty((0,20))
-        self.middle_x = np.empty((0,20))
-        self.middle_y = np.empty((0,20))
-        self.ring_x = np.empty((0,20))
-        self.ring_y = np.empty((0,20))
-        self.pinky_x = np.empty((0,20))
-        self.pinky_y = np.empty((0,20))
-        self.wrist_x = np.empty((0,20))
-        self.wrist_y = np.empty((0,20))
