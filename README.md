@@ -1,6 +1,8 @@
 # Team Seoul
 Group members: Rithwik Jayanth, Steven Shang Shi, Chris Suzuki, Leo Chen
+
 24-678 Computer Vision for Engineers
+
 Last Updated: December 9th 2022
 
 # System Description
