@@ -1,4 +1,6 @@
-# Seoul
+# Team Seoul
+Group members: Rithwik JayanthSteven Shang ShiChris SuzukiLeo Chen
+
 # System Description
 
 The purpose of this project is to create a hand gesture recognition library that is able to conduct a task once a hand gesture is recognized. The goal is to apply this to automobiles, where a driver’s hand gesture will trigger the activation/modification of a car feature (ex. turning on/off the wipers, changing the music track, etc.).
