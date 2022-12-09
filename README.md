@@ -39,6 +39,13 @@ The following are the features that can be changed within the vehicle with the c
 
 Figure 2. Flow Logic of the Code
 
+# How to run our code
+Run on python verison 3.9 with the following packages installed:
+opencv, numpy, mediapipe, and hands package from the link in resources.
+Open file main_updated_final.py and run with any of the hardware cameras.
+
+How to activate each function:
+
 # Results
 
 The final demonstration video of each functions can be seen here: https://github.com/chrisuzuki62/Seoul/tree/main/video_demo
