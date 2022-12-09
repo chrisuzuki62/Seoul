@@ -5,7 +5,7 @@ The purpose of this project is to create a hand gesture recognition library that
 
 
 # Hardware Design
-
+The Design uses the Intel Realsense L515 for RGB, IR, and Depth Camera capabilties.
 Requirements:
 1. Preferable - Intel Realsense L515 Camera
     a. USB 3.0 Connection
@@ -14,16 +14,29 @@ Requirements:
 
 # Software Design
 
-The program for our plotter reads from an HPGL file uploaded onto the Nucleo micrcoprocessor and carries out each step of the file to create a 2D drawing. The X-Y coordinates specified in the HPGL file are sequentially inputted into a function that calculates the inverse kinematics for both of the driven linkages on our robot. The program also allows for the location and size of the drawing to be altered as long as the drawing area is within the robot's reach. For more information on the layout our asynchronous cooperative multitasking program, please refer to our Documentation of Code linked below.
+We use a MediaPipe and Tensor Flow package referred in the resource section to track hands and their finger positions like image below:
+
+![test1](mediapipe.png)
+
+
+Figure 1. Hands Package Results
+
+Using the data from the fingertip positions we 
+Implemented Features
+Volume/Temp Change
+Next/Previous Track
+Answer Incoming Calls
+etc
+
+
 
 ![test](system.png)
 
-Figure 1. Flow Logic of the Code
+Figure 2. Flow Logic of the Code
 
 # Results
 
-The final demonstration video can be seen here: https://youtu.be/_0DGsNZlUL0
-
+The final demonstration video of each function can be seen here: https://github.com/chrisuzuki62/Seoul/tree/main/video_demo
 
 
 # Resources
