@@ -136,9 +136,11 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
 
                         # all functions
                         if mode == 0:
+                            #Returns the volume bar(not used in this model) and volume percentage
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                             if volper > 0.5:
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)
+                                #Outputs the volume percentage when the activation gesture is held.
                                 image = cv2.putText(image, 'VOLUME', (80,185), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0))
 
                             # Check to see if next track gesture has been identified
@@ -147,9 +149,12 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                             if flag1 ==0:
                                 text_to_print, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime = previous_track(text_to_print, mode, mhl, isThumbLeftFirst, prev_thumbTip_x_prev, mode_endtime)
                             
+                            #returns the lengths of various fingers. When the gesture is a fist, the music is paused.
+                            #once paused, remove hand momentarily and hold same gesture to play music.
                             length2, length3, length4, length5, lengtht = pause_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                             if length2 < 30 and length3 < 30 and length4 < 30 and length5 < 30 and lengtht < 80:
                                 if flagp == True:
+                                    #outputs text when activation gesture is held. 
                                     image = cv2.putText(image, 'PAUSE MUSIC', (80,185), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 0, 0))
 
                                     # Allow to change to play mode
@@ -165,6 +170,8 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                         elif mode == 1:
                             volbar = 0
                             volper = 0
+                            #Returns the temperature bar(not used in this model) and temperature percentage
+                            #same function is called. Outputs temperature percentage in climate mode.
                             volbar, volper = volume_control(mp_hands_hands, mp_hands,mp_drawing, cap)
                             if volper > 0.5:
                                 cv2.putText(image,f"{int(volper)}%",(10,40),cv2.FONT_ITALIC,1,(0, 255, 98),3)  
@@ -173,6 +180,8 @@ with mp_hands.Hands(min_detection_confidence = 0.8, min_tracking_confidence = 0.
                                 mode_endtime = mode_endtime + timedelta(seconds = 0.2)
                             
                         if text_to_print != '':
+                            #when gestures are held in this mode, the timer gets extended. 
+                            # as long as the current time doesnt reach this time, the mode will stay in climate.
                             text_print_end_time = datetime.now() + timedelta(seconds = 1)
                             flag1 = 0
                         
