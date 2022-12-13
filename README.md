@@ -45,6 +45,11 @@ opencv, numpy, mediapipe, and hands package from the link in resources.
 Open file main_updated_final.py and run with any of the hardware cameras.
 
 How to activate each function:
+1. Change Modes
+    a. Media Mode - Nothing
+    b. Climate Mode - Hold Index Finger up to hold the number 1 sign
+    c. Phone Call Mode - Press C on your keyboard
+2. Volume/Temp Change - 
 
 # Results
 
