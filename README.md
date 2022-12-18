@@ -49,7 +49,10 @@ How to activate each function:
     a. Media Mode - Nothing
     b. Climate Mode - Hold Index Finger up to hold the number 1 sign
     c. Phone Call Mode - Press C on your keyboard
-2. Volume/Temp Change - 
+2. Volume/Temp Change - Change the distance betweeen your index finger and thumb
+3. Next/Previous Track - Hold your thumb out from a fist and swipe left or right
+4. Pause/Play - Hold a fist to pause and show it again to play
+5. Answer Incoming Phone calls - Phone hand sign to pickup - swipe left with fingers outstretched to reject call
 
 # Results
 
